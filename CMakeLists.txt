@@ -9,7 +9,7 @@ include_directories(${PROJECT_SOURCE_DIR}/include)
 if(DEFINED ENV{ROS_DISTRO})
   if($ENV{ROS_VERSION} EQUAL 1)
     # In ROS compilation environment
-    message("Currently in ROS compilation environment")
+    message("Currently in ROS1 compilation environment")
     
     find_package(catkin REQUIRED COMPONENTS 
       roscpp
