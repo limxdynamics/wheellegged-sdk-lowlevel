@@ -64,17 +64,6 @@ void ControllerBase::startLoop()
  */
 void ControllerBase::loadParameters()
 {
-  // Load joint offsets from the hardware
-  std::vector<float> offset;
-  joint_offset_.resize(robot_cmd_.q.size());
-  if (wl_->getJointOffset(offset))
-  {
-    joint_offset_ << offset[0], offset[1], offset[2], offset[3],
-        offset[4], offset[5], offset[6], offset[7],
-        offset[8], offset[9], offset[10], offset[11],
-        offset[12], offset[13], offset[14], offset[15];
-  }
-
   // Set default proportional gains for position control
   joint_kp_.resize(robot_cmd_.Kp.size());
   joint_kp_ = Eigen::VectorXd::Constant(robot_cmd_.Kp.size(), 600);
@@ -254,7 +243,7 @@ void ControllerBase::publish(limxsdk::RobotCmd &msg)
 {
   for (uint16_t i = 0; i < msg.q.size(); i++)
   {
-    msg.q[i] = msg.q[i] + joint_offset_[i];
+    msg.q[i] = msg.q[i];
   }
   wl_->publishRobotCmd(msg); // Publish the adjusted robot command message
 }
@@ -270,7 +259,7 @@ void ControllerBase::robotStateCallback(const limxsdk::RobotStateConstPtr &msg)
   robot_state_ = *msg;
   for (uint16_t i = 0; i < msg->q.size(); i++)
   {
-    robot_state_.q[i] = msg->q[i] - joint_offset_[i];
+    robot_state_.q[i] = msg->q[i];
   }
   mtx_.unlock();
   if (!recv_)

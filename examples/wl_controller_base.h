@@ -132,7 +132,6 @@ private:
   Eigen::VectorXd joint_kp_;     // Proportional gains for joints
   Eigen::VectorXd joint_kd_;     // Derivative gains for joints
   Eigen::VectorXd damping_kd_;   // Derivative gains for damping
-  Eigen::VectorXd joint_offset_; // Joint offsets
   Eigen::VectorXd home_q_;       // Home joint positions
   Eigen::VectorXd stand_q_;      // Standing joint positions
 };
