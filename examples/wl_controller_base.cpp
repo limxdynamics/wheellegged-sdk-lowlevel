@@ -20,6 +20,7 @@
  */
 ControllerBase::ControllerBase()
     : robot_cmd_(16) // Assuming 16 is the size of robot command data
+    , robot_state_(16) // Assuming 16 is the size of robot state data
 {
   wl_ = limxsdk::Wheellegged::getInstance(); // Get instance of the WheelLegged class
 

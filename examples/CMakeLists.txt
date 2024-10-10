@@ -24,14 +24,6 @@ else()
   set(LINK_LIBS wheellegged_sdk_lowlevel pthread)
 endif()
 
-add_executable(wl_template wl_template.cpp ${COMMON_SRCS})
-target_link_libraries(wl_template ${LINK_LIBS})
-install(TARGETS wl_template DESTINATION ${EXAMPLES_BIN_INSTALL_PREFIX})
-
-add_executable(wl_zero_torque wl_zero_torque.cpp ${COMMON_SRCS})
-target_link_libraries(wl_zero_torque ${LINK_LIBS})
-install(TARGETS wl_zero_torque DESTINATION ${EXAMPLES_BIN_INSTALL_PREFIX})
-
 add_executable(wl_standup wl_standup.cpp ${COMMON_SRCS})
 target_link_libraries(wl_standup ${LINK_LIBS})
 install(TARGETS wl_standup DESTINATION ${EXAMPLES_BIN_INSTALL_PREFIX})

@@ -62,6 +62,24 @@ int main(int argc, char *argv[])
     exit(1); // Exit if initialization fails
   }
 
+  bool is_calibration = false;
+
+  // Subscribing to diagnostic values for calibration state
+  wl->subscribeDiagnosticValue([&](const limxsdk::DiagnosticValueConstPtr& msg) {
+    // Check if the diagnostic message pertains to calibration
+    if (msg->name == "calibration") {
+      if (msg->code == 0) {
+        is_calibration = true;
+      }
+    }
+  });
+
+  std::cout << "Waitting calibration begin." << std::endl;
+  while(!is_calibration) {
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+  }
+  std::cout << "Waitting calibration end." << std::endl;
+
   WLStandUp ctl;
   ctl.starting(); // Start the stand-up behavior
 
